@@ -9,6 +9,10 @@
 
 Pitu Platform is a comprehensive IoT solution designed for commercial vehicle fleet management, energy optimization, and real-time telemetry. Built on AWS Greengrass v2, it provides edge-first computing with cloud synchronization, enabling robust offline operation and scalable fleet deployment.
 
+<p align="center">
+   <img src="./static/pitu-fw.png" />
+</p>
+
 ## 🚀 Features
 
 ### Core Capabilities
