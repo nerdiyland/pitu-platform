@@ -1,0 +1,19 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.vanlance.vehicle-components.WebsiteDelivery
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Website delivery for publishing web artifacts in Vanlance vehicles"
+ComponentPublisher: Vanlance
+ComponentDependencies: 
+  com.vanlance.vehicle-components.Nodejs:
+    VersionRequirement: "~18.0.0"
+    DependencyType: SOFT
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Install: |-
+      echo "Starting Website delivery installation"
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      npm init -y && npm i live-server@latest
+      echo "Website delivery installed successfully"

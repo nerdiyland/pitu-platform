@@ -1,0 +1,49 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.vanlance.vehicle-components.Api
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Data management API for vehicle systems"
+ComponentPublisher: Vanlance
+ComponentConfiguration:
+  DefaultConfiguration:
+    accessControl:
+      aws.greengrass.ipc.pubsub:
+        'com.vanlance.vehicle-components.Api:pubsub:1':
+          policyDescription: 'Allows access to shadow pubsub topics'
+          operations:
+            - 'aws.greengrass#SubscribeToTopic'
+            - 'aws.greengrass#PublishToTopic'
+          resources:
+            - '*'
+      aws.greengrass.ShadowManager:
+        'com.vanlance.vehicle-components.Api:1':
+          policyDescription: 'Allows access to shadows'
+          operations:
+            - 'aws.greengrass#GetThingShadow'
+            - 'aws.greengrass#UpdateThingShadow'
+          resources:
+            - '*'
+        'com.vanlance.vehicle-components.Api:shadow:2':
+          policyDescription: 'Allows access to things with shadows'
+          operations:
+            - 'aws.greengrass#ListNamedShadowsForThing'
+          resources:
+            - pitu-caleya
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Install: |-
+      mkdir -p /home/ggc_user/api-data
+      if test -f /home/ggc_user/api-data/device-settings.json; then echo "Settings file already exists."; else echo "[]" > /home/ggc_user/api-data/device-settings.json; fi
+      echo "Installation finished"
+    Run: |-
+      echo "Starting API runtime"
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      DATA_PATH=/home/ggc_user/api-data node {artifacts:decompressedPath}/api/runtime.js
+  Artifacts:
+  - Uri: <REPLACE_WITH_S3_URI>
+    Unarchive: ZIP
+    Permission:
+      Read: OWNER
+      Execute: NONE

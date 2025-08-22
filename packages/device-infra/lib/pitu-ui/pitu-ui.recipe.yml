@@ -1,0 +1,27 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.pitucaleya.components.InfotainmentUI
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Infotainment user interface installed on Pitu Caleya"
+ComponentPublisher: Vanlance
+ComponentDependencies: 
+  com.vanlance.vehicle-components.WebsiteDelivery:
+    VersionRequirement: "<WEBSITE_DELIVERY_COMPONENT_VERSION>"
+    DependencyType: SOFT
+ComponentConfiguration:
+  DefaultConfiguration:
+    PORT: 3000
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Run: |-
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      {com.vanlance.vehicle-components.WebsiteDelivery:work:path}/node_modules/live-server/live-server.js \
+        {artifacts:decompressedPath}/infotainment-ui/ --port={configuration:/PORT}
+  Artifacts:
+  - Uri: <REPLACE_WITH_S3_URI>
+    Unarchive: ZIP
+    Permission:
+      Read: OWNER
+      Execute: NONE

@@ -1,0 +1,13 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.vanlance.vehicle-components.M2MNetwork
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Creates an M2M WiFi network for onboard ECUs to connect to"
+ComponentPublisher: Vanlance
+ComponentDependencies: {}
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Run: 
+      RequiresPrivilege: true
+      Script: nmcli con up Hotspot

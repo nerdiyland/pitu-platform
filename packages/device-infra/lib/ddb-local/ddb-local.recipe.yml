@@ -1,0 +1,19 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.vanlance.vehicle-components.DdbLocal
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Local storage for configuration and other data"
+ComponentPublisher: Vanlance
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Install: |-
+      apt update -y
+      apt install openjdk-17-jdk
+      mkdir -p /dynamodb
+      cd /dynamodb
+      wget https://d1ni2b6xgvw0s0.cloudfront.net/v2.x/dynamodb_local_latest.tar.gz
+      tar -zxvf dynamodb_local_latest.tar.gz
+    Run: |-
+      cd /dynamodb
+      java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb

@@ -1,0 +1,22 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.pitucaleya.components.InfotainmentUIClient
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Infotainment user interface installed on Pitu Caleya"
+ComponentPublisher: Vanlance
+ComponentDependencies: 
+  com.pitucaleya.components.InfotainmentUI:
+    VersionRequirement: "<COMPONENT_VERSION>"
+    DependencyType: HARD
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Run: 
+      Script: |-
+        su -l pitucaleya -c "DISPLAY=:0 chromium-browser --start-fullscreen http://localhost:{com.pitucaleya.components.InfotainmentUI:configuration:/PORT}#lightweight"
+        prev_code=$(echo $?)
+        if [ "0" != $prev_code ]; then
+          echo "ERROR: Failed to launch pitu ui client."
+          exit 1
+        fi
+      RequiresPrivilege: true

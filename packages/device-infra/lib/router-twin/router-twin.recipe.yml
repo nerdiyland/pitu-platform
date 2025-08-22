@@ -1,0 +1,51 @@
+RecipeFormatVersion: 2020-01-25
+ComponentName: com.vanlance.vehicle-components.RouterTwin
+ComponentVersion: <COMPONENT_VERSION>
+ComponentDescription: "Infotainment user interface installed on Pitu Caleya"
+ComponentPublisher: Vanlance
+ComponentDependencies:
+  aws.greengrass.ShadowManager:
+    VersionRequirement: ">2.3.5"
+    DependencyType: SOFT
+  com.vanlance.vehicle-components.Nodejs:
+    VersionRequirement: "~18.0.0"
+    DependencyType: SOFT
+ComponentConfiguration:
+  DefaultConfiguration:
+    accessControl:
+      aws.greengrass.ipc.pubsub:
+        'com.vanlance.vehicle-components.RouterTwin:pubsub:3':
+          policyDescription: 'Allows access to shadow pubsub topics'
+          operations:
+            - 'aws.greengrass#SubscribeToTopic'
+          resources:
+            - '*'
+      aws.greengrass.ShadowManager:
+        'com.vanlance.vehicle-components.RouterTwin:1':
+          policyDescription: 'Allows access to shadows'
+          operations:
+            - 'aws.greengrass#GetThingShadow'
+            - 'aws.greengrass#UpdateThingShadow'
+            - 'aws.greengrass#DeleteThingShadow'
+          resources:
+            - '*'
+        'com.vanlance.vehicle-components.RouterTwin:shadow:2':
+          policyDescription: 'Allows access to things with shadows'
+          operations:
+            - 'aws.greengrass#ListNamedShadowsForThing'
+          resources:
+            - pitu-caleya
+Manifests:
+- Platform:
+    os: /linux/
+  Lifecycle:
+    Run: |-
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      node {artifacts:decompressedPath}/router-twin/runtime.js
+  Artifacts:
+  - Uri: <REPLACE_WITH_S3_URI>
+    Unarchive: ZIP
+    Permission:
+      Read: OWNER
+      Execute: NONE
