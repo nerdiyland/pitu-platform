@@ -100,15 +100,15 @@ The platform implements multiple digital twins for comprehensive vehicle state m
 **Hardware Requirements:**
 - Raspberry Pi 4B (minimum 4GB RAM)
 - ESP32 development board
-- 7"+ touchscreen display
-- Mercedes vehicle with PSM support (Sprinter 907/910 series)
+- 7"+ touchscreen display - 15" preferred
+- Mercedes vehicle with PSM support (Sprinter 907/910 series) - for using the PSM connector
 - Victron energy system (optional)
 
 **Software Requirements:**
-- AWS Account with IoT Core enabled
+- AWS Account
 - Node.js 18+ and npm
 - AWS CLI v2
-- Arduino IDE or PlatformIO
+- Arduino IDE
 
 ### Development Setup
 
