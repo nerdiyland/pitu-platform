@@ -25,7 +25,7 @@ Pitu Platform is a comprehensive IoT solution designed for commercial vehicle fl
 
 ### Technical Highlights
 - **AWS Greengrass v2** - Edge runtime with component-based architecture
-- **Microservices Design** - Containerized components with independent scaling
+- **Microservices Design** - Fully-serverless Cloud components and containerized edge workloads.
 - **MQTT Pub/Sub** - Local broker with AWS IoT Core synchronization
 - **WebSocket Communication** - Real-time UI updates and bidirectional control
 - **Local Data Persistence** - DynamoDB Local for offline capability
